@@ -1,8 +1,12 @@
 package httpClientTest.controllers;
 
-import httpClientTest.packages.MyWebClient;
+import httpClientTest.clients.LowLevelClient;
+import httpClientTest.clients.MyWebClient;
+import io.micronaut.http.HttpResponse;
+import io.micronaut.http.HttpStatus;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
+import io.reactivex.Maybe;
 import java.util.List;
 import java.util.Optional;
 import javax.inject.Inject;
@@ -13,6 +17,9 @@ public class HomeController {
 
   @Inject
   List<MyWebClient> myWebClients;
+
+  @Inject
+  LowLevelClient lowLevelClient;
 
   @Get("/{code}")
   public String GetHome(String code) {
@@ -29,4 +36,8 @@ public class HomeController {
     return "Wrong Code";
   }
 
+  @Get("/2/{code}")
+  public String GetHome2(String code) {
+    return lowLevelClient.get(code).blockingFirst();
+  }
 }

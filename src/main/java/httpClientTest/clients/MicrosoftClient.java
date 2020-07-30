@@ -1,4 +1,4 @@
-package httpClientTest.packages;
+package httpClientTest.clients;
 
 import io.micronaut.http.client.annotation.Client;
 
